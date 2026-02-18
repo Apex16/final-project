@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "final-project:latest"
         CLUSTER_NAME = "devops-cluster"
+        KUBECONFIG = "/var/lib/jenkins/.kube/config"
     }
 
     stages {
