@@ -4,7 +4,6 @@ pipeline {
     environment {
         IMAGE_NAME = "final-project:latest"
         CLUSTER_NAME = "devops-cluster"
-        KUBECONFIG = "/var/lib/jenkins/.kube/config"
     }
 
     stages {
@@ -18,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                  docker build -t $IMAGE_NAME .
+                  docker build -t final-project:latest .
                 '''
             }
         }
@@ -26,7 +25,7 @@ pipeline {
         stage('Load Image into KIND') {
             steps {
                 sh '''
-                  kind load docker-image $IMAGE_NAME --name $CLUSTER_NAME
+                  kind load docker-image final-project:latest --name devops-cluster
                 '''
             }
         }
@@ -34,8 +33,11 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                  kubectl apply -f deployment.yaml --validate=false
-                  kubectl apply -f service.yaml --validate=false
+                  docker exec devops-cluster-control-plane \
+                    kubectl apply -f /workspace/deployment.yaml
+
+                  docker exec devops-cluster-control-plane \
+                    kubectl apply -f /workspace/service.yaml
                 '''
             }
         }
