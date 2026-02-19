@@ -38,6 +38,8 @@ pipeline {
 
                   docker exec devops-cluster-control-plane \
                     kubectl apply -f /workspace/service.yaml
+                   docker exec devops-cluster-control-plane \
+                    kubectl rollout restart deployment/final-project
                 '''
             }
         }
