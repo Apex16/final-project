@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1>🚀 Final Project</h1>
+      <h1>🚀 Final-Project</h1>
       <h3>Vite + Jenkins + Docker + KIND Kubernetes</h3>
 
       <button onClick={() => setCount(count + 1)}>
